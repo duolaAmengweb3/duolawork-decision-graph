@@ -6,6 +6,11 @@ import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {openGraph} from './graph.mjs';
 const snapshot=JSON.parse(await fs.readFile(new URL('./fixture.json',import.meta.url),'utf8'));
+test('the included persistent example contains the source-linked review chain',()=>{
+  const graph=openGraph(new URL('./data/example.rl',import.meta.url).pathname,{readOnly:true});
+  assert.equal(graph.read().nodes.length,8);assert.equal(graph.read().edges.length,10);
+  assert.deepEqual(graph.impact('req-v1').map(n=>n.id),['acceptance','draft-v1','draft-v2','finding','task']);
+});
 test('real Relate persistence, idempotent import, transitive impact and parameter safety',async()=>{
   const dir=await fs.mkdtemp(path.join(os.tmpdir(),'decision-graph-'));
   try{

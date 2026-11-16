@@ -26,6 +26,8 @@ Open the loopback URL printed in the terminal. The server chooses an available p
 
 A single file fits a small project lineage snapshot: judges can run locally and retain state without provisioning a database service. Browser routes execute fixed read-only queries. Values are bound as parameters.
 
+The repository also includes an actual saved synthetic graph at [data/example.rl](data/example.rl): **8 records, 10 relationships**, created and checkpointed with Relate 1.0.1. Inspect it with `node server.mjs --store data/example.rl`. The default `.local` working store is separate. Saved example SHA-256: `9a054012d7285d4df2705fb91c0af5a37519f61f5cede8958cbea823a67b7fb6`.
+
 ```cypher
 MATCH (root:Record {id: $id})<-[:DEPENDS_ON*1..6]-(n:Record)
 RETURN DISTINCT n.id AS id, n.title AS title, n.kind AS kind,
