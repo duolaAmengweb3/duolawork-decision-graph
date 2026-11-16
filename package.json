@@ -1,0 +1,14 @@
+{
+  "name": "duolawork-decision-graph",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A new Relate-backed artifact lineage demo; DuolaWork core is prior work.",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test graph.test.mjs"
+  },
+  "dependencies": {
+    "@relate/relate": "1.0.1"
+  }
+}
