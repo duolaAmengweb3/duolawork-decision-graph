@@ -2,25 +2,120 @@
   "schemaVersion": 1,
   "scope": "Synthetic project; no private workspace or commercial agent calls",
   "nodes": [
-    {"id":"req-v1","kind":"requirement","title":"Validate 10 source records","version":1,"source":"fixture.json#req-v1","summary":"The initial scope requires a checked brief based on ten records."},
-    {"id":"req-v2","kind":"requirement","title":"Expand the scope to 11 records","version":2,"source":"fixture.json#req-v2","summary":"A later synthetic requirement asks for one additional verified record."},
-    {"id":"task","kind":"task","title":"Supplier evidence brief","version":1,"source":"fixture.json#task"},
-    {"id":"draft-v1","kind":"document","title":"Original draft: 100 records","version":1,"source":"fixture.json#draft-v1"},
-    {"id":"finding","kind":"review","title":"Source says 10, not 100","version":1,"source":"fixture.json#finding"},
-    {"id":"draft-v2","kind":"document","title":"Corrected brief: 10 records","version":2,"source":"fixture.json#draft-v2"},
-    {"id":"acceptance","kind":"check","title":"Revision 2 accepted","version":1,"source":"fixture.json#acceptance","summary":"Historical approval applies to revision 2 and the original scope."},
-    {"id":"change","kind":"change","title":"Requirement expanded","version":1,"source":"fixture.json#change"}
+    {
+      "id": "req-v1",
+      "kind": "requirement",
+      "title": "Validate 10 source records",
+      "version": 1,
+      "source": "fixture.json#req-v1",
+      "summary": "Scope v1\nPrepare a supplier brief using 10 verified source records. Resolve material fact-check findings before delivery."
+    },
+    {
+      "id": "req-v2",
+      "kind": "requirement",
+      "title": "Expand the scope to 11 records",
+      "version": 2,
+      "source": "fixture.json#req-v2",
+      "summary": "Scope v2\nExpand the brief to 11 verified source records. The earlier draft and acceptance refer to the original scope."
+    },
+    {
+      "id": "task",
+      "kind": "task",
+      "title": "Supplier evidence brief",
+      "version": 1,
+      "source": "fixture.json#task"
+    },
+    {
+      "id": "draft-v1",
+      "kind": "document",
+      "title": "Original draft: 100 records",
+      "version": 1,
+      "source": "fixture.json#draft-v1",
+      "summary": "Draft v1\nThe sample contains 100 verified records.\n\nThe cited source actually contains 10 records. This synthetic error is the subject of the fact-check."
+    },
+    {
+      "id": "finding",
+      "kind": "review",
+      "title": "Source says 10, not 100",
+      "version": 1,
+      "source": "fixture.json#finding",
+      "summary": "Fact-check finding\nThe source contains 10 records; draft v1 claims 100. Correct the specific claim before accepting the brief."
+    },
+    {
+      "id": "draft-v2",
+      "kind": "document",
+      "title": "Corrected brief: 10 records",
+      "version": 2,
+      "source": "fixture.json#draft-v2",
+      "summary": "Corrected draft v2\nThe sample contains 10 verified records.\n\nThe claim now matches the synthetic source and the reviewer has checked this revision."
+    },
+    {
+      "id": "acceptance",
+      "kind": "check",
+      "title": "Revision 2 accepted",
+      "version": 1,
+      "source": "fixture.json#acceptance",
+      "summary": "Accepted: draft v2 under scope v1\nThe claim agrees with the 10-record source. This historical check remains visible after the scope expands; it does not approve scope v2."
+    },
+    {
+      "id": "change",
+      "kind": "change",
+      "title": "Requirement expanded",
+      "version": 1,
+      "source": "fixture.json#change",
+      "summary": "Synthetic requirement change\nThe scope expands from 10 to 11 verified records. Inspect the work that depended on scope v1 before continuing."
+    }
   ],
   "edges": [
-    {"from":"task","to":"req-v1","type":"DEPENDS_ON"},
-    {"from":"draft-v1","to":"task","type":"DEPENDS_ON"},
-    {"from":"finding","to":"draft-v1","type":"DEPENDS_ON"},
-    {"from":"draft-v2","to":"task","type":"DEPENDS_ON"},
-    {"from":"draft-v2","to":"finding","type":"DEPENDS_ON"},
-    {"from":"draft-v2","to":"draft-v1","type":"REVISION_OF"},
-    {"from":"acceptance","to":"draft-v2","type":"DEPENDS_ON"},
-    {"from":"acceptance","to":"draft-v2","type":"CHECKED"},
-    {"from":"req-v2","to":"req-v1","type":"REVISION_OF"},
-    {"from":"change","to":"req-v1","type":"CHANGED"}
+    {
+      "from": "task",
+      "to": "req-v1",
+      "type": "DEPENDS_ON"
+    },
+    {
+      "from": "draft-v1",
+      "to": "task",
+      "type": "DEPENDS_ON"
+    },
+    {
+      "from": "finding",
+      "to": "draft-v1",
+      "type": "DEPENDS_ON"
+    },
+    {
+      "from": "draft-v2",
+      "to": "task",
+      "type": "DEPENDS_ON"
+    },
+    {
+      "from": "draft-v2",
+      "to": "finding",
+      "type": "DEPENDS_ON"
+    },
+    {
+      "from": "draft-v2",
+      "to": "draft-v1",
+      "type": "REVISION_OF"
+    },
+    {
+      "from": "acceptance",
+      "to": "draft-v2",
+      "type": "DEPENDS_ON"
+    },
+    {
+      "from": "acceptance",
+      "to": "draft-v2",
+      "type": "CHECKED"
+    },
+    {
+      "from": "req-v2",
+      "to": "req-v1",
+      "type": "REVISION_OF"
+    },
+    {
+      "from": "change",
+      "to": "req-v1",
+      "type": "CHANGED"
+    }
   ]
 }

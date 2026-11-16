@@ -2,7 +2,7 @@ import http from 'node:http';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {openGraph} from './graph.mjs';
+import {openGraph,IMPACT_QUERY} from './graph.mjs';
 const root=path.dirname(fileURLToPath(import.meta.url));
 const args=process.argv.slice(2),value=(name,fallback)=>args.includes(name)?args[args.indexOf(name)+1]:fallback;
 const store=path.resolve(value('--store',path.join(root,'.local/decision-graph.rl')));
@@ -17,9 +17,9 @@ const server=http.createServer(async(req,res)=>{
     const url=new URL(req.url,'http://'+host);
     if(req.method!=='GET'){res.writeHead(405);res.end();return;}
     res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');
-    if(url.pathname==='/api/graph'||url.pathname==='/api/impact'){
+    if(['/api/graph','/api/impact','/api/query'].includes(url.pathname)){
       res.setHeader('Content-Type','application/json');
-      res.end(JSON.stringify(url.pathname==='/api/graph'?graph.read():graph.impact((url.searchParams.get('id')||'').slice(0,300))));return;
+      res.end(JSON.stringify(url.pathname==='/api/query'?{statement:IMPACT_QUERY,maxHops:6,maxCandidates:100}:url.pathname==='/api/graph'?graph.read():graph.impact((url.searchParams.get('id')||'').slice(0,300))));return;
     }
     if(url.pathname!=='/'){res.writeHead(404);res.end();return;}
     res.setHeader('Content-Type','text/html; charset=utf-8');res.end(await fs.readFile(path.join(root,'index.html')));

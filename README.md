@@ -26,7 +26,7 @@ Open the loopback URL printed in the terminal. The server chooses an available p
 
 A single file fits a small project lineage snapshot: judges can run locally and retain state without provisioning a database service. Browser routes execute fixed read-only queries. Values are bound as parameters.
 
-The repository also includes an actual saved synthetic graph at [data/example.rl](data/example.rl): **8 records, 10 relationships**, created and checkpointed with Relate 1.0.1. Inspect it with `node server.mjs --store data/example.rl`. The default `.local` working store is separate. Saved example SHA-256: `9a054012d7285d4df2705fb91c0af5a37519f61f5cede8958cbea823a67b7fb6`.
+The repository also includes an actual saved synthetic graph at [data/example.rl](data/example.rl): **8 records, 10 relationships**, created and checkpointed with Relate 1.0.1. Inspect it with `node server.mjs --store data/example.rl`. The default `.local` working store is separate. Saved example SHA-256: `f049fea46e75270db7a3a704b1c72a81258f2ba14c696901c17c6fc195b3b052`.
 
 ```cypher
 MATCH (root:Record {id: $id})<-[:DEPENDS_ON*1..6]-(n:Record)
@@ -60,7 +60,7 @@ The separate DuolaWork judge walkthrough includes a compatible exporter for its 
 
 `npm test` uses the actual Relate engine: a child process writes and checkpoints a store, then a later process opens it read-only. Assertions cover persistence, repeated import counts, transitive impact, injection-like parameter text, and malformed import rejection without changing stored data.
 
-Verified locally on **macOS ARM64, Node 24.19.0**. Other native package platforms have not been independently tested for this entry. This is one focused integration scenario, not a general benchmark or productivity measurement. The UI has been inspected in a local browser. A dedicated demo film and final contest submission remain in preparation.
+Verified locally on **macOS ARM64, Node 24.19.0**. Other native package platforms have not been independently tested for this entry. This is one focused integration scenario, not a general benchmark or productivity measurement. The UI has been inspected in a local browser. The [87-second narrated demo](https://youtu.be/99PFpundKa0) shows the actual local viewer, five query results, the fixed Cypher statement and a real server restart against the same saved store. The example records are synthetic; screen recording and AI narration are identified as such. English and Chinese caption files accompany the local delivery. Contest submission status is tracked separately on Devpost.
 
 ## Prior work, AI and license
 

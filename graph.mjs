@@ -1,6 +1,7 @@
 import {Database} from '@relate/relate';
 const kinds=new Set(['requirement','task','document','review','check','change']);
 const relations=new Set(['DEPENDS_ON','REVISION_OF','CHECKED','CHANGED']);
+export const IMPACT_QUERY='MATCH (root:Record {id:$id})<-[:DEPENDS_ON*1..6]-(n:Record) RETURN DISTINCT n.id AS id,n.title AS title,n.kind AS kind,n.version AS version,n.source AS source ORDER BY n.id LIMIT 100';
 
 export function openGraph(file,{readOnly=false}={}){
   const db=Database.open(file,{readOnly}),conn=db.connect();
@@ -21,6 +22,6 @@ export function openGraph(file,{readOnly=false}={}){
       return this.read();
     },
     read(){return {nodes:conn.query('MATCH (n:Record) RETURN n.id AS id,n.kind AS kind,n.title AS title,n.version AS version,n.source AS source,n.summary AS summary ORDER BY n.id LIMIT 10000').rows,edges:conn.query('MATCH (a:Record)-[r]->(b:Record) RETURN a.id AS from,b.id AS to,type(r) AS type LIMIT 30000').rows};},
-    impact(id){return conn.query('MATCH (root:Record {id:$id})<-[:DEPENDS_ON*1..6]-(n:Record) RETURN DISTINCT n.id AS id,n.title AS title,n.kind AS kind,n.version AS version,n.source AS source ORDER BY n.id LIMIT 100',{id}).rows;}
+    impact(id){return conn.query(IMPACT_QUERY,{id}).rows;}
   };
 }
